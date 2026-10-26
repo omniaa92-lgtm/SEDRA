@@ -223,9 +223,14 @@ section { padding-block: clamp(80px, 12vw, 150px); }
 .band cite { display: block; margin-top: 26px; font-style: normal; font-size: .78rem; opacity: .8; }
 
 /* Contact */
-.contact .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(40px, 7vw, 110px); }
-.contact-info { display: grid; gap: 34px; align-content: start; min-width: 0; }
-.contact-info > p { margin: 0; color: var(--muted); max-width: 44ch; }
+.contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); align-items: stretch; }
+.panel { display: flex; flex-direction: column; gap: 28px; padding: clamp(28px, 4vw, 52px); border: 1px solid var(--line); min-width: 0; }
+.panel-head { display: grid; gap: 10px; }
+.panel-head .eyebrow { margin-bottom: 4px; justify-self: start; }
+.contact .panel { height: 100%; }
+.panel-title { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.7rem, 2.6vw, 2.2rem); line-height: 1.4; }
+.panel-head p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.9; }
+.contact-info .hours { margin-top: auto; padding-top: 4px; }
 .channels { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .channels li { border-bottom: 1px solid var(--line); }
 .channels a { display: flex; align-items: center; gap: 18px; padding-block: 18px; transition: padding .5s var(--ease); }
@@ -233,13 +238,11 @@ section { padding-block: clamp(80px, 12vw, 150px); }
 .channels svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.3; }
 .channels .name { flex: 1; }
 .channels .handle { color: var(--muted); font-size: .9rem; direction: ltr; unicode-bidi: isolate; }
-.hours { display: flex; gap: 28px; flex-wrap: wrap; }
+.hours { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .hours div { display: grid; }
-.hours b { font-weight: 400; font-size: 1.15rem; }
+.hours b { font-weight: 400; font-size: 1rem; }
 .hours span { color: var(--muted); font-size: .85rem; }
 
-form { display: grid; gap: 26px; padding: clamp(28px, 4vw, 52px); border: 1px solid var(--line); align-content: start; min-width: 0; }
-form h3 { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: 1.7rem; }
 .field { display: grid; gap: 6px; }
 .field label { font-size: .8rem; color: var(--muted); }
 .field input, .field select, .field textarea {
@@ -247,12 +250,14 @@ form h3 { margin: 0; font-family: var(--font-display); font-weight: 300; font-si
   font: inherit; padding: 8px 0; border-radius: 0; transition: border-color .4s var(--ease);
 }
 .field select option { background: var(--paper); color: var(--ink); }
-.field textarea { resize: vertical; min-height: 90px; }
+.field textarea { resize: vertical; min-height: 96px; }
+.form-foot { margin-top: auto; display: grid; gap: 12px; justify-items: start; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom-color: var(--ink); }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-form .btn { justify-self: start; background: var(--ink); color: var(--paper); border-color: var(--ink); }
+form .btn { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 form .btn:hover { background: transparent; color: var(--ink); }
 .note { margin: 0; font-size: .8rem; color: var(--muted); }
+.note:empty { display: none; }
 
 /* Footer */
 footer { border-top: 1px solid var(--line); padding-block: 64px 36px; }
@@ -465,10 +470,12 @@ footer .wrap { display: grid; gap: 48px; }
 
   <section class="contact" id="contact">
     <div class="wrap">
-      <div class="contact-info reveal">
-        <span class="eyebrow">Contact</span>
-        <h2>تواصلي معنا</h2>
-        <p>لحجز موعد أو طلب تصميم خاص، راسلينا مباشرة أو عبر حساباتنا.</p>
+      <div class="contact-info panel reveal">
+        <div class="panel-head">
+          <span class="eyebrow">Contact</span>
+          <h2 class="panel-title">تواصلي معنا</h2>
+          <p>لحجز موعد أو الاستفسار، راسلينا مباشرة أو عبر حساباتنا.</p>
+        </div>
         <ul class="channels">
           <li><a href="https://wa.me/966535306069" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-1.8-.9-.9.8a4 4 0 0 1-2.2-2.2l.8-.9-.9-1.8z"/></svg>
@@ -493,8 +500,12 @@ footer .wrap { display: grid; gap: 48px; }
         </div>
       </div>
 
-      <form id="orderForm" class="reveal" novalidate>
-        <h3>طلب تصميم خاص</h3>
+      <form id="orderForm" class="panel reveal" novalidate>
+        <div class="panel-head">
+          <span class="eyebrow">Bespoke</span>
+          <h3 class="panel-title">طلب تصميم خاص</h3>
+          <p>اكتبي تفاصيل طلبك، ويصلنا على واتساب برسالة جاهزة.</p>
+        </div>
         <div class="row2">
           <div class="field"><label for="fName">الاسم</label><input id="fName" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="fPhone">رقم الجوال</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
@@ -514,8 +525,10 @@ footer .wrap { display: grid; gap: 48px; }
           <div class="field"><label for="fDate">تاريخ المناسبة</label><input id="fDate" name="date" type="date"></div>
         </div>
         <div class="field"><label for="fDetails">صفي التصميم الذي تحلمين به</label><textarea id="fDetails" name="details" placeholder="اللون، القصّة، القماش، أو أي فكرة في بالك…"></textarea></div>
-        <button class="btn" type="submit">أرسلي الطلب عبر واتساب</button>
-        <p class="note" id="formNote">سيُفتح واتساب برسالة جاهزة تحتوي على تفاصيل طلبك.</p>
+        <div class="form-foot">
+          <button class="btn" type="submit">أرسلي الطلب عبر واتساب</button>
+          <p class="note" id="formNote" aria-live="polite"></p>
+        </div>
       </form>
     </div>
   </section>
