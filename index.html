@@ -184,10 +184,11 @@ section { padding-block: clamp(80px, 12vw, 150px); }
 .collection { background: var(--soft); transition: background-color .6s var(--ease); }
 .collection-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(40px, 6vw, 72px); }
 .collection-head p { margin: 0; color: var(--muted); max-width: 40ch; }
-.looks { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: clamp(12px, 2vw, 26px); align-items: center; }
-.look { margin: 0; overflow: hidden; position: relative; }
-.look img { width: 100%; aspect-ratio: 4 / 4.6; object-fit: cover; filter: grayscale(1); transition: transform 1.4s var(--ease), filter 1s var(--ease); }
-.look:nth-child(2) img { aspect-ratio: 4 / 5.2; object-position: center 15%; }
+.looks { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(12px, 2vw, 26px); }
+.look { margin: 0; overflow: hidden; position: relative; grid-column: span 2; }
+.look:nth-child(n+4) { grid-column: span 3; }
+.look img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%; filter: grayscale(1) contrast(1.12); transition: transform 1.4s var(--ease), filter 1s var(--ease); }
+.look:nth-child(n+4) img { aspect-ratio: 4 / 3; object-position: center 30%; }
 .look:hover img { transform: scale(1.04); filter: grayscale(0); }
 .look figcaption { position: absolute; bottom: 0; inset-inline: 0; padding: 40px 18px 16px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.55)); display: flex; justify-content: space-between; align-items: baseline; font-size: .9rem; }
 .look figcaption .latin { font-size: .72rem; letter-spacing: .35em; }
@@ -253,7 +254,10 @@ footer .wrap { display: grid; gap: 48px; }
   nav { display: none; }
   .about .wrap, .contact .wrap, .foot-grid { grid-template-columns: 1fr; }
   .looks { grid-template-columns: 1fr 1fr; }
-  .look:nth-child(2) { grid-column: 1 / -1; order: -1; }
+  .look, .look:nth-child(n+4) { grid-column: span 1; }
+  .look:nth-child(n+4) img { aspect-ratio: 4 / 5; }
+  .look:last-child { grid-column: 1 / -1; }
+  .look:last-child img { aspect-ratio: 4 / 3; }
   .map { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 480px) {
@@ -339,8 +343,16 @@ footer .wrap { display: grid; gap: 48px; }
           <figcaption><span>سماء الشيفون</span><span class="latin">Look 02</span></figcaption>
         </figure>
         <figure class="look reveal">
-          <img src="images/look-3.webp" alt="تفاصيل فستان أسود مطرّز مع أكمام ساتان" loading="lazy" width="1092" height="1440">
-          <figcaption><span>ساتان وترتر</span><span class="latin">Look 03</span></figcaption>
+          <img src="images/look-4.webp" alt="جلابية ذهبية واسعة بصدر من الساتان الأسود المطرّز" loading="lazy" width="1100" height="1100">
+          <figcaption><span>ذهب الساتان</span><span class="latin">Look 03</span></figcaption>
+        </figure>
+        <figure class="look reveal">
+          <img src="images/look-5.webp" alt="فستان عنّابي بكاب مطبّع، وفستان بطبعة زهور مع ذيل فيروزي" loading="lazy" width="1100" height="1100">
+          <figcaption><span>عنّاب وفيروز</span><span class="latin">Look 04</span></figcaption>
+        </figure>
+        <figure class="look reveal">
+          <img src="images/look-6.webp" alt="جلابية من المخمل الأسود المطبّع بالزهور مع ترتر ذهبي وتنورة دانتيل" loading="lazy" width="1100" height="1100">
+          <figcaption><span>مخمل وذهب</span><span class="latin">Look 05</span></figcaption>
         </figure>
       </div>
     </div>
