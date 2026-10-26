@@ -219,6 +219,7 @@ section { padding-block: clamp(80px, 12vw, 150px); }
 /* Quote band */
 .band { position: relative; color: var(--on-photo); text-align: center; isolation: isolate; overflow: hidden; }
 .band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; z-index: -2; filter: grayscale(1) brightness(.55); }
+.band img.band-bridal { object-position: center 40%; }
 .band blockquote { margin: 0 auto; max-width: 26ch; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.7rem, 3.8vw, 2.8rem); line-height: 1.6; text-wrap: balance; }
 .band cite { display: block; margin-top: 26px; font-style: normal; font-size: .78rem; opacity: .8; }
 
@@ -282,6 +283,7 @@ footer .wrap { display: grid; gap: 48px; }
 .js .reveal.pending { transform: translateY(28px); opacity: .001; }
 
 @media (max-width: 860px) {
+  .band img.band-bridal { object-position: 72% 40%; }
   .look { flex-basis: 70vw; }
   .arrow { width: 42px; height: 42px; }
   .hero-bg { left: 0; width: 100%; }
@@ -461,7 +463,7 @@ footer .wrap { display: grid; gap: 48px; }
   </section>
 
   <section class="band" aria-label="اقتباس">
-    <img src="images/band.webp" alt="" loading="lazy" style="object-position: center 0%">
+    <img class="band-bridal" src="images/band-bridal.webp" alt="" loading="lazy">
     <div class="wrap reveal">
       <blockquote>الأناقة ليست أن تُلفتي الأنظار، بل أن تبقي في الذاكرة</blockquote>
       <cite class="latin">N SEDRA</cite>
