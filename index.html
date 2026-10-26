@@ -214,6 +214,15 @@ section { padding-block: clamp(80px, 12vw, 150px); }
 .look { margin: 0; overflow: hidden; flex: 0 0 clamp(240px, 27vw, 360px); scroll-snap-align: start; }
 .look img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%; filter: grayscale(1) contrast(1.12); transition: transform 1.4s var(--ease), filter 1s var(--ease); }
 .look:hover img { transform: scale(1.04); filter: grayscale(0); }
+.look { position: relative; }
+.look.wm::after {
+  content: ""; position: absolute; left: 50%; bottom: 13%; width: 54px; height: 47px; transform: translateX(-50%);
+  background: url(images/monogram.png) center / contain no-repeat; filter: invert(1); opacity: .32; pointer-events: none;
+}
+.look.wm::before {
+  content: "SEDRA"; position: absolute; left: 50%; bottom: calc(13% - 20px); transform: translateX(-50%); z-index: 1;
+  font-family: var(--font-latin); font-size: .62rem; letter-spacing: .45em; color: #fff; opacity: .4; direction: ltr; pointer-events: none;
+}
 .looks-count { margin-top: 22px; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
 
 /* Quote band */
@@ -398,22 +407,22 @@ footer .wrap { display: grid; gap: 48px; }
         </div>
       </div>
       <div class="looks reveal" id="looks" tabindex="0" aria-label="معرض التصاميم">
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/look-9.webp" alt="فستان أسود طويل بأكمام واسعة مزيّن بدوائر من الساتان الأبيض والأسود" loading="lazy" width="1069" height="1900" style="object-position: center 30%">
         </figure>
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/look-10.webp" alt="فستان كحلي طويل بكاب من الشيفون ووشاح مطرّز بالكريستال" loading="lazy" width="1100" height="1375">
         </figure>
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/look-1.webp" alt="فستان أسود بالترتر وأكمام ساتان منفوخة" loading="lazy" width="1100" height="1375">
         </figure>
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/hero.webp" alt="فستان سهرة أزرق لامع مع كاب من الشيفون" loading="lazy" width="1091" height="1900">
         </figure>
         <figure class="look">
           <img src="images/look-4.webp" alt="جلابية ذهبية واسعة بصدر من الساتان الأسود المطرّز" loading="lazy" width="1100" height="1100">
         </figure>
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/about.webp" alt="فستان سهرة لامع مع كاب من الساتان الأبيض" loading="lazy" width="1092" height="1440">
         </figure>
         <figure class="look">
@@ -425,13 +434,13 @@ footer .wrap { display: grid; gap: 48px; }
         <figure class="look">
           <img src="images/look-7.webp" alt="الجلابية الذهبية من الخلف مع شراشيب مشغولة يدوياً" loading="lazy" width="1100" height="1100">
         </figure>
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/look-2.webp" alt="فستان أزرق لامع بكاب شيفون طويل" loading="lazy" width="1100" height="1908">
         </figure>
         <figure class="look">
           <img src="images/look-8.webp" alt="جلابيتان من المخمل المطبّع مع ترتر ذهبي وأخضر" loading="lazy" width="1100" height="1100">
         </figure>
-        <figure class="look">
+        <figure class="look wm">
           <img src="images/look-3.webp" alt="تفاصيل فستان أسود مطرّز مع أكمام ساتان" loading="lazy" width="1092" height="1440">
         </figure>
         <figure class="look">
