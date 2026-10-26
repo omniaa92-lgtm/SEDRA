@@ -260,6 +260,8 @@ footer .wrap { display: grid; gap: 48px; }
 .foot-brand { display: grid; gap: 18px; justify-items: start; }
 .foot-brand img { width: 120px; filter: var(--logo-filter); }
 .foot-brand p { margin: 0; color: var(--muted); font-size: .92rem; }
+.foot-social { display: flex; gap: 8px; }
+.foot-social .soc { border-color: var(--line); }
 .foot-brand .foot-bio { color: var(--ink); opacity: .8; max-width: 38ch; line-height: 1.95; }
 .map { position: relative; aspect-ratio: 16 / 7; max-width: 100%; border: 1px solid var(--line); background: var(--soft); overflow: hidden; }
 .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(1) contrast(1.1); }
@@ -479,8 +481,14 @@ footer .wrap { display: grid; gap: 48px; }
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="images/logo.png" alt="N SEDRA سدرة" width="120" height="164">
-        <p class="foot-bio">نجلاء العمري مصممة أزياء سعودية من جدة، تصمّم فساتين السهرة والجلابيات والدراعات الفاخرة لكل امرأة على حدة. قصّات مدروسة وأقمشة منتقاة وتفاصيل يدوية تمنح كل قطعة حضوراً لا يُنسى.</p>
+        <p class="foot-bio">نجلاء العمري، مصممة أزياء سعودية من جدة. فساتين سهرة وجلابيات ودراعات فاخرة، تُصمَّم لكِ وحدكِ.</p>
         <p>جدة — حي النهضة<br>يومياً من 9 صباحاً إلى 9 مساءً</p>
+        <div class="foot-social">
+          <a class="soc" href="https://www.instagram.com/n_sedra2/" target="_blank" rel="noopener" aria-label="انستغرام"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg></a>
+          <a class="soc" href="#" data-social="snapchat" target="_blank" rel="noopener" aria-label="سناب شات"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3 0 5 2.2 5 5v2.3l1.8-.5c.6.4.4 1-.2 1.3l-1.8.8c.6 1.8 2 3.1 3.7 3.6-.3.8-1.5 1-2.6 1.2-.2.6-.2 1.1-.6 1.2-.8.1-1.6-.4-2.8-.1-1 .3-1.6 1.7-2.5 1.7s-1.5-1.4-2.5-1.7c-1.2-.3-2 .2-2.8.1-.4-.1-.4-.6-.6-1.2-1.1-.2-2.3-.4-2.6-1.2 1.7-.5 3.1-1.8 3.7-3.6l-1.8-.8c-.6-.3-.8-.9-.2-1.3l1.8.5V8.5c0-2.8 2-5 5-5z"/></svg></a>
+          <a class="soc" href="#" data-social="tiktok" target="_blank" rel="noopener" aria-label="تيك توك"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M14 3.5c.4 2.6 2.2 4.4 5 4.6"/></svg></a>
+          <a class="soc" href="https://wa.me/966535306069" target="_blank" rel="noopener" aria-label="واتساب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-1.8-.9-.9.8a4 4 0 0 1-2.2-2.2l.8-.9-.9-1.8z"/></svg></a>
+        </div>
       </div>
       <div class="map">
         <div class="map-fallback">جدة — حي النهضة</div>
