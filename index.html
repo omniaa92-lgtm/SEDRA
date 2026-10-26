@@ -595,16 +595,21 @@ footer .wrap { display: grid; gap: 48px; }
   // Order form -> WhatsApp message
   document.getElementById("orderForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    var f = e.target, note = document.getElementById("formNote");
-    if (!f.name.value.trim()) { note.textContent = "اكتبي اسمك أولاً حتى نعرف كيف نخاطبك."; f.name.focus(); return; }
+    var note = document.getElementById("formNote");
+    function val(id) { return document.getElementById(id).value.trim(); }
+    var name = val("fName");
+    if (!name) { note.textContent = "اكتبي اسمك أولاً حتى نعرف كيف نخاطبك."; document.getElementById("fName").focus(); return; }
+    var date = val("fDate");
+    if (date) { var d = date.split("-"); date = d[2] + "/" + d[1] + "/" + d[0]; }
     var lines = [
       "مرحباً سدرة، أرغب في حجز موعد:",
-      "الاسم: " + f.name.value.trim(),
-      f.phone.value.trim() ? "الجوال: " + f.phone.value.trim() : "",
-      "المناسبة: " + f.occasion.value,
-      f.date.value ? "تاريخ المناسبة: " + f.date.value : "",
-      f.details.value.trim() ? "التفاصيل: " + f.details.value.trim() : ""
-    ].filter(Boolean).join("\n");
+      "",
+      "الاسم: " + name,
+      val("fPhone") ? "الجوال: " + val("fPhone") : "",
+      "المناسبة: " + val("fOccasion"),
+      date ? "تاريخ المناسبة: " + date : "",
+      val("fDetails") ? "التفاصيل: " + val("fDetails") : ""
+    ].filter(function (l, i) { return l || i === 1; }).join("\n");
     var url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines);
     note.innerHTML = 'تم تجهيز رسالتك. إن لم يُفتح واتساب، <a style="text-decoration:underline" target="_blank" rel="noopener" href="' + url + '">اضغطي هنا</a>.';
     window.open(url, "_blank", "noopener");
