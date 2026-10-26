@@ -286,6 +286,11 @@ footer .wrap { display: grid; gap: 48px; }
   nav { display: none; }
   .about .wrap, .contact .wrap, .foot-grid { grid-template-columns: 1fr; }
   .map { aspect-ratio: auto; height: 170px; }
+  .channels { display: flex; flex-wrap: wrap; gap: 10px; border-top: 0; }
+  .channels li { border-bottom: 0; }
+  .channels a, .channels a:hover { display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid var(--line); border-radius: 50%; }
+  .channels .name, .channels .handle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .channels svg { width: 20px; height: 20px; }
   footer { padding-block: 40px 28px; }
   footer .wrap { gap: 28px; }
   .foot-grid { gap: 24px; }
