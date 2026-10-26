@@ -33,7 +33,7 @@
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preload" as="image" href="images/look-3.webp">
+<link rel="preload" as="image" href="images/hero.webp">
 
 <script type="application/ld+json">
 {
@@ -85,6 +85,7 @@
   --soft: #f5f5f4;
   --veil: rgba(0, 0, 0, .42);
   --on-photo: #ffffff;
+  --photo-ground: #050505;
   --logo-filter: none;
   --font-latin: "Tajawal", "Segoe UI", Tahoma, sans-serif;
   --font-display: "Tajawal", "Segoe UI", Tahoma, sans-serif;
@@ -149,11 +150,11 @@ nav a:hover::after { transform: scaleX(1); }
 :root[data-theme="dark"] .toggle .dot { transform: rotate(180deg); }
 
 /* Hero */
-.hero { position: relative; color: var(--on-photo); overflow: hidden; isolation: isolate; }
-.hero-bg { position: absolute; inset: 0; z-index: -2; }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: grayscale(1) contrast(1.05); transform: scale(1.06); animation: settle 2.4s var(--ease) forwards; }
-.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,.25), var(--veil) 55%, rgba(0,0,0,.7)); }
-.hero .wrap { min-height: min(72svh, 680px); display: grid; place-items: center; text-align: center; padding-block: 96px 72px; }
+.hero { position: relative; color: var(--on-photo); overflow: hidden; isolation: isolate; background: var(--photo-ground); }
+.hero-bg { position: absolute; inset-block: 0; left: 0; width: 58%; z-index: -2; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; filter: grayscale(1) contrast(1.08); transform: scale(1.06); animation: settle 2.4s var(--ease) forwards; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,.05) 0%, rgba(0,0,0,.25) 34%, var(--photo-ground) 55%); }
+.hero .wrap { min-height: min(80svh, 740px); display: grid; grid-template-columns: 1fr 1fr; align-items: center; text-align: center; padding-block: 96px 72px; }
 .hero-title { margin: 0; line-height: 0; }
 .hero-inner { display: grid; justify-items: center; gap: 28px; }
 .hero-logo { width: clamp(150px, 22vw, 240px); filter: invert(1); }
@@ -251,6 +252,10 @@ footer .wrap { display: grid; gap: 48px; }
 .js .reveal.pending { transform: translateY(28px); opacity: .001; }
 
 @media (max-width: 860px) {
+  .hero-bg { left: 0; width: 100%; }
+  .hero-logo { width: 150px; }
+  .hero::after { background: linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.35) 38%, rgba(5,5,5,.85) 62%, var(--photo-ground) 90%); }
+  .hero .wrap { grid-template-columns: 1fr; align-items: end; min-height: min(92svh, 760px); padding-block: 96px 64px; }
   nav { display: none; }
   .about .wrap, .contact .wrap, .foot-grid { grid-template-columns: 1fr; }
   .looks { grid-template-columns: 1fr 1fr; }
@@ -298,7 +303,7 @@ footer .wrap { display: grid; gap: 48px; }
 
 <main id="top">
   <section class="hero" style="padding:0">
-    <div class="hero-bg"><img src="images/look-3.webp" alt="" fetchpriority="high"></div>
+    <div class="hero-bg"><img src="images/hero.webp" alt="" fetchpriority="high"></div>
     <div class="wrap">
       <div class="hero-inner">
         <h1 class="hero-title"><img class="hero-logo" src="images/logo.png" alt="N SEDRA سدرة — مصممة أزياء في جدة" width="240" height="328"></h1>
@@ -306,7 +311,7 @@ footer .wrap { display: grid; gap: 48px; }
         <a class="btn" href="#contact">اطلبي تصميمك</a>
       </div>
     </div>
-    <span class="scroll-cue" aria-hidden="true"></span>
+
   </section>
 
   <section class="about" id="about">
