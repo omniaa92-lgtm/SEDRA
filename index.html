@@ -104,6 +104,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; direction: rtl; }
 body {
   margin: 0; background: var(--paper); color: var(--ink);
@@ -141,11 +142,15 @@ nav ul { list-style: none; display: flex; gap: clamp(16px, 3vw, 40px); margin: 0
 nav a { position: relative; padding-block: 4px; }
 nav a::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transition: transform .5s var(--ease); }
 nav a:hover::after { transform: scaleX(1); }
-.toggle {
-  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
-  background: none; border: 1px solid var(--line); color: var(--ink); border-radius: 999px;
-  padding: 7px 14px; font: inherit; font-size: .82rem;
+.top-actions { display: flex; align-items: center; gap: 4px; }
+.toggle, .soc {
+  display: inline-grid; place-items: center; width: 38px; height: 38px; cursor: pointer;
+  background: none; border: 1px solid transparent; color: var(--ink); border-radius: 50%; padding: 0;
+  transition: border-color .4s var(--ease);
 }
+.toggle { border-color: var(--line); margin-inline-end: 8px; }
+.toggle:hover, .soc:hover { border-color: var(--ink); }
+.soc svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.3; }
 .toggle .dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); transition: transform .6s var(--ease); }
 :root[data-theme="dark"] .toggle .dot { transform: rotate(180deg); }
 
@@ -275,7 +280,8 @@ footer .wrap { display: grid; gap: 48px; }
   .steps { grid-template-columns: 1fr; }
   .row2 { grid-template-columns: 1fr; }
   .brand span { display: none; }
-  .toggle #themeLabel { display: none; }
+  .soc { width: 32px; height: 32px; }
+  .toggle { width: 34px; height: 34px; margin-inline-end: 2px; }
   .look figcaption { padding: 28px 10px 8px; font-size: .78rem; }
   .look figcaption .latin { display: none; }
 }
@@ -301,10 +307,15 @@ footer .wrap { display: grid; gap: 48px; }
         <li><a href="#contact">اطلبي تصميمك</a></li>
       </ul>
     </nav>
-    <button class="toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي والنهاري">
-      <span class="dot" aria-hidden="true"></span>
-      <span id="themeLabel">الوضع الداكن</span>
-    </button>
+    <div class="top-actions">
+      <button class="toggle" id="themeToggle" type="button" aria-label="تفعيل الوضع الداكن" title="تبديل الوضع">
+        <span class="dot" aria-hidden="true"></span>
+      </button>
+      <a class="soc" href="https://www.instagram.com/n_sedra2/" target="_blank" rel="noopener" aria-label="انستغرام"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg></a>
+      <a class="soc" href="#" data-social="snapchat" target="_blank" rel="noopener" aria-label="سناب شات"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3 0 5 2.2 5 5v2.3l1.8-.5c.6.4.4 1-.2 1.3l-1.8.8c.6 1.8 2 3.1 3.7 3.6-.3.8-1.5 1-2.6 1.2-.2.6-.2 1.1-.6 1.2-.8.1-1.6-.4-2.8-.1-1 .3-1.6 1.7-2.5 1.7s-1.5-1.4-2.5-1.7c-1.2-.3-2 .2-2.8.1-.4-.1-.4-.6-.6-1.2-1.1-.2-2.3-.4-2.6-1.2 1.7-.5 3.1-1.8 3.7-3.6l-1.8-.8c-.6-.3-.8-.9-.2-1.3l1.8.5V8.5c0-2.8 2-5 5-5z"/></svg></a>
+      <a class="soc" href="#" data-social="tiktok" target="_blank" rel="noopener" aria-label="تيك توك"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5v11.2a3.3 3.3 0 1 1-3.3-3.3"/><path d="M14 3.5c.4 2.6 2.2 4.4 5 4.6"/></svg></a>
+      <a class="soc" href="https://wa.me/966535306069" target="_blank" rel="noopener" aria-label="واتساب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-1.8-.9-.9.8a4 4 0 0 1-2.2-2.2l.8-.9-.9-1.8z"/></svg></a>
+    </div>
   </div>
 </header>
 
@@ -469,16 +480,16 @@ footer .wrap { display: grid; gap: 48px; }
 
   document.querySelectorAll("[data-social]").forEach(function (a) {
     var url = SOCIAL[a.dataset.social];
-    if (url) a.href = url; else a.closest("li").hidden = true;
+    if (url) a.href = url; else (a.closest("li") || a).hidden = true;
   });
 
   // Theme toggle
-  var root = document.documentElement, label = document.getElementById("themeLabel");
+  var root = document.documentElement, toggle = document.getElementById("themeToggle");
   function isDark() {
     var t = root.getAttribute("data-theme");
     return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
-  function sync() { label.textContent = isDark() ? "الوضع الفاتح" : "الوضع الداكن"; }
+  function sync() { toggle.setAttribute("aria-label", isDark() ? "تفعيل الوضع الفاتح" : "تفعيل الوضع الداكن"); }
   try { var saved = localStorage.getItem("sedra-theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
   sync();
   document.getElementById("themeToggle").addEventListener("click", function () {
