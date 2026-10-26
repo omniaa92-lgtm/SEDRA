@@ -285,7 +285,16 @@ footer .wrap { display: grid; gap: 48px; }
   .hero .wrap { grid-template-columns: 1fr; align-items: end; min-height: min(92svh, 760px); padding-block: 96px 64px; }
   nav { display: none; }
   .about .wrap, .contact .wrap, .foot-grid { grid-template-columns: 1fr; }
-  .map { aspect-ratio: 4 / 3; }
+  .map { aspect-ratio: auto; height: 170px; }
+  footer { padding-block: 40px 28px; }
+  footer .wrap { gap: 28px; }
+  .foot-grid { gap: 24px; }
+  .foot-brand { justify-items: center; text-align: center; gap: 12px; }
+  .foot-brand img { width: 76px; }
+  .foot-brand .foot-bio { font-size: .88rem; line-height: 1.85; max-width: 32ch; }
+  .foot-brand p { font-size: .85rem; }
+  .foot-social { justify-content: center; }
+  .legal { justify-content: center; text-align: center; }
 }
 @media (max-width: 480px) {
   .steps { grid-template-columns: 1fr; }
