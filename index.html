@@ -196,14 +196,24 @@ section { padding-block: clamp(80px, 12vw, 150px); }
 .collection { background: var(--soft); transition: background-color .6s var(--ease); }
 .collection-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(40px, 6vw, 72px); }
 .collection-head p { margin: 0; color: var(--muted); max-width: 40ch; }
-.looks { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(12px, 2vw, 26px); }
-.look { margin: 0; overflow: hidden; position: relative; grid-column: span 2; }
-.look:nth-child(n+4) { grid-column: span 3; }
+.arrows { display: flex; gap: 10px; }
+.arrow {
+  display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; cursor: pointer;
+  background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: 0;
+  transition: background-color .4s var(--ease), color .4s var(--ease), opacity .4s var(--ease);
+}
+.arrow:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.arrow:disabled { opacity: .25; cursor: default; }
+.arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+.looks {
+  display: flex; gap: clamp(12px, 2vw, 24px); overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 4px;
+}
+.looks::-webkit-scrollbar { display: none; }
+.look { margin: 0; overflow: hidden; flex: 0 0 clamp(240px, 27vw, 360px); scroll-snap-align: start; }
 .look img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%; filter: grayscale(1) contrast(1.12); transition: transform 1.4s var(--ease), filter 1s var(--ease); }
-.look:nth-child(n+4) img { aspect-ratio: 4 / 3; object-position: center 30%; }
 .look:hover img { transform: scale(1.04); filter: grayscale(0); }
-.look figcaption { position: absolute; bottom: 0; inset-inline: 0; padding: 40px 18px 16px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.55)); display: flex; justify-content: space-between; align-items: baseline; font-size: .9rem; }
-.look figcaption .latin { font-size: .72rem; letter-spacing: .35em; }
+.looks-count { margin-top: 22px; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
 
 /* Quote band */
 .band { position: relative; color: var(--on-photo); text-align: center; isolation: isolate; overflow: hidden; }
@@ -263,17 +273,14 @@ footer .wrap { display: grid; gap: 48px; }
 .js .reveal.pending { transform: translateY(28px); opacity: .001; }
 
 @media (max-width: 860px) {
+  .look { flex-basis: 70vw; }
+  .arrow { width: 42px; height: 42px; }
   .hero-bg { left: 0; width: 100%; }
   .hero-logo { width: 150px; }
   .hero::after { background: linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.35) 38%, rgba(5,5,5,.85) 62%, var(--photo-ground) 90%); }
   .hero .wrap { grid-template-columns: 1fr; align-items: end; min-height: min(92svh, 760px); padding-block: 96px 64px; }
   nav { display: none; }
   .about .wrap, .contact .wrap, .foot-grid { grid-template-columns: 1fr; }
-  .looks { grid-template-columns: 1fr 1fr; }
-  .look, .look:nth-child(n+4) { grid-column: span 1; }
-  .look:nth-child(n+4) img { aspect-ratio: 4 / 5; }
-  .look:last-child { grid-column: 1 / -1; }
-  .look:last-child img { aspect-ratio: 4 / 3; }
   .map { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 480px) {
@@ -282,8 +289,6 @@ footer .wrap { display: grid; gap: 48px; }
   .brand span { display: none; }
   .soc { width: 32px; height: 32px; }
   .toggle { width: 34px; height: 34px; margin-inline-end: 2px; }
-  .look figcaption { padding: 28px 10px 8px; font-size: .78rem; }
-  .look figcaption .latin { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -358,27 +363,45 @@ footer .wrap { display: grid; gap: 48px; }
           <span class="eyebrow">New Collection</span>
           <h2>أحدث التصاميم</h2>
         </div>
+        <div class="arrows">
+          <button class="arrow" id="lookPrev" type="button" aria-label="التصاميم السابقة" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          </button>
+          <button class="arrow" id="lookNext" type="button" aria-label="عرض المزيد من التصاميم">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="looks">
-        <figure class="look reveal">
+      <div class="looks reveal" id="looks" tabindex="0" aria-label="معرض التصاميم">
+        <figure class="look">
           <img src="images/look-1.webp" alt="فستان أسود بالترتر وأكمام ساتان منفوخة" loading="lazy" width="1100" height="1375">
-          <figcaption><span>ليلة سوداء</span><span class="latin">Look 01</span></figcaption>
         </figure>
-        <figure class="look reveal">
-          <img src="images/look-2.webp" alt="فستان سهرة أزرق لامع مع كاب من الشيفون" loading="lazy" width="1100" height="1908">
-          <figcaption><span>سماء الشيفون</span><span class="latin">Look 02</span></figcaption>
+        <figure class="look">
+          <img src="images/hero.webp" alt="فستان سهرة أزرق لامع مع كاب من الشيفون" loading="lazy" width="1091" height="1900">
         </figure>
-        <figure class="look reveal">
+        <figure class="look">
           <img src="images/look-4.webp" alt="جلابية ذهبية واسعة بصدر من الساتان الأسود المطرّز" loading="lazy" width="1100" height="1100">
-          <figcaption><span>ذهب الساتان</span><span class="latin">Look 03</span></figcaption>
         </figure>
-        <figure class="look reveal">
+        <figure class="look">
+          <img src="images/about.webp" alt="فستان سهرة لامع مع كاب من الساتان الأبيض" loading="lazy" width="1092" height="1440">
+        </figure>
+        <figure class="look">
           <img src="images/look-5.webp" alt="فستان عنّابي بكاب مطبّع، وفستان بطبعة زهور مع ذيل فيروزي" loading="lazy" width="1100" height="1100">
-          <figcaption><span>عنّاب وفيروز</span><span class="latin">Look 04</span></figcaption>
         </figure>
-        <figure class="look reveal">
+        <figure class="look">
           <img src="images/look-6.webp" alt="جلابية من المخمل الأسود المطبّع بالزهور مع ترتر ذهبي وتنورة دانتيل" loading="lazy" width="1100" height="1100">
-          <figcaption><span>مخمل وذهب</span><span class="latin">Look 05</span></figcaption>
+        </figure>
+        <figure class="look">
+          <img src="images/look-7.webp" alt="الجلابية الذهبية من الخلف مع شراشيب مشغولة يدوياً" loading="lazy" width="1100" height="1100">
+        </figure>
+        <figure class="look">
+          <img src="images/look-2.webp" alt="فستان أزرق لامع بكاب شيفون طويل" loading="lazy" width="1100" height="1908">
+        </figure>
+        <figure class="look">
+          <img src="images/look-8.webp" alt="جلابيتان من المخمل المطبّع مع ترتر ذهبي وأخضر" loading="lazy" width="1100" height="1100">
+        </figure>
+        <figure class="look">
+          <img src="images/look-3.webp" alt="تفاصيل فستان أسود مطرّز مع أكمام ساتان" loading="lazy" width="1092" height="1440">
         </figure>
       </div>
     </div>
@@ -516,6 +539,21 @@ footer .wrap { display: grid; gap: 48px; }
     note.innerHTML = 'تم تجهيز رسالتك. إن لم يُفتح واتساب، <a style="text-decoration:underline" target="_blank" rel="noopener" href="' + url + '">اضغطي هنا</a>.';
     window.open(url, "_blank", "noopener");
   });
+
+  // Collection slider: in RTL the next designs sit to the left
+  var track = document.getElementById("looks"), prev = document.getElementById("lookPrev"), next = document.getElementById("lookNext");
+  var rtl = getComputedStyle(track).direction === "rtl";
+  function step() { var f = track.querySelector(".look"); return f ? f.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth; }
+  function updateArrows() {
+    var pos = Math.abs(track.scrollLeft), max = track.scrollWidth - track.clientWidth;
+    prev.disabled = pos <= 2;
+    next.disabled = pos >= max - 2;
+  }
+  next.addEventListener("click", function () { track.scrollBy({ left: rtl ? -step() : step() }); });
+  prev.addEventListener("click", function () { track.scrollBy({ left: rtl ? step() : -step() }); });
+  track.addEventListener("scroll", function () { window.requestAnimationFrame(updateArrows); }, { passive: true });
+  window.addEventListener("resize", updateArrows);
+  updateArrows();
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
